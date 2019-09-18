@@ -28,7 +28,7 @@ cnt_diameter(n,m) = 2.46/pi * sqrt(n*n + n*m + m*m)
 "Parse xyz file"
 function readxyz(filename)
     f = open(filename,"r")
-    natoms = parse(readline(f))
+    natoms = parse(Int,readline(f))
     atoms = readdlm(f,skipstart=1)
     close(f)
     if natoms != size(atoms,1)
