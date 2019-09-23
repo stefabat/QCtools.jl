@@ -1,7 +1,9 @@
 
 module QCtools
 
-import DataStructures: OrderedDict
+using DelimitedFiles
+using LinearAlgebra
+using DataStructures: OrderedDict
 
 export readxyz,countbonds
 export extrapolate_halkier,extrapolate_jensen,extrapolate_feller
@@ -23,7 +25,14 @@ tobohr = 1.889726131
 au2cgs = 16.48778/(4*pi*8.854188)
 
 """Compute the diameter of a CNT(n,m)"""
-cnt_diameter(n,m) = 2.46/pi * sqrt(n*n + n*m + m*m)
+function cnt_diameter(n::Int, m::Int) 
+    if n < m || n < 1 || m < 0
+        throw(DomainError())
+    end
+    diam = 2.46/pi * sqrt(n*n + n*m + m*m)
+    println(round(diam;digits=2)," Å")
+    return diam
+end
 
 "Parse xyz file"
 function readxyz(filename)
@@ -80,7 +89,7 @@ For details: F. Jensen, Introduction to Computational Chemistry
                         3rd edition (2017)
 """
 function extrapolate_jensen(oep_x, oep_y, x, y, B)
-  assert(y-x == 1)
+  @assert(y-x == 1)
   return ( exp(B*sqrt(x))*oep_x - exp(B*sqrt(y))*oep_y ) / ( exp(B*sqrt(x)) - exp(B*sqrt(y)) )
 end
 
