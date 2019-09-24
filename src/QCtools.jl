@@ -25,7 +25,7 @@ tobohr = 1.889726131
 au2cgs = 16.48778/(4*pi*8.854188)
 
 """Compute the diameter of a CNT(n,m)"""
-function cnt_diameter(n::Int, m::Int) 
+function cnt_diameter(n::Int, m::Int)
     if n < m || n < 1 || m < 0
         throw(DomainError())
     end
