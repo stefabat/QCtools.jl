@@ -11,6 +11,8 @@ export extrapolate_halkier,extrapolate_jensen,extrapolate_feller
 export toev,tomev,tocm,tohz,tokj,tokcal,toang,tobohr,au2cgs
 export cnt_diameter
 
+export csf
+
 # defining unit conversion constants as in MOLPRO
 toev   = 27.2113839
 tomev  = 27211.3839
@@ -96,6 +98,20 @@ end
 "p[1] is the CBS limit, p[2]=A and p[3]=B"
 function extrapolate_feller(x, p)
   return p[1] + p[2]*exp(-sqrt(x).*p[3])
+end
+
+"""
+Weyl's formula for the number of CSF in an active space
+n: number of electrons
+m: number of orbitals
+S: spin quantum number
+
+"""
+function csf(n, m, S)
+  a = (2*S+1)/(m+1)
+  b = binomial(m+1,n/2 - S)
+  c = binomial(m+1,n/2 + S +1)
+  return a*b*c
 end
 
 end
