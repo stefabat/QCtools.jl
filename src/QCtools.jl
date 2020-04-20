@@ -109,8 +109,8 @@ S: spin quantum number
 """
 function csf(n, m, S)
   a = (2*S+1)/(m+1)
-  b = binomial(m+1,n/2 - S)
-  c = binomial(m+1,n/2 + S +1)
+  b = binomial(m+1,Int(n/2) - S)
+  c = binomial(m+1,Int(n/2) + S +1)
   return a*b*c
 end
 
